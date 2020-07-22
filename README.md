@@ -9,25 +9,32 @@ yarn watch
 Go to http://localhost:4000/graphql to play with the GraphQL IDE.
 
 ```graphql
-query all {
-  hello
-  allScalars {
-    int
-    float
-    string
-    boolean
-    id
+query allTypes {
+  int
+  float
+  string
+  boolean
+  id
+
+  person {
+    name
+    age
   }
 
   reflectEnum(input: NORTH)
 
   randomEnum
 
-  whereAmI(input:{ lat: 243.23, long: 213.123123})
+  whereAmI(input: { lat: 243.23, long: 213.123123 })
 
   searchResult {
     ... on Person {
       name
+    }
+
+    ... on Photo {
+      height
+      width
     }
   }
 

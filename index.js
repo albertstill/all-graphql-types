@@ -2,12 +2,9 @@ const express = require('express');
 const { ApolloServer, gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-  type AllScalars {
-    int: Int
-    float: Float
-    string: String
-    boolean: Boolean
-    id: ID
+  type Person {
+    name: String
+    age: Int
   }
 
   enum Direction {
@@ -20,11 +17,6 @@ const typeDefs = gql`
   input LatLngInput {
     lat: Float!
     long: Float!
-  }
-
-  type Person {
-    name: String
-    age: Int
   }
 
   type Photo {
@@ -51,12 +43,15 @@ const typeDefs = gql`
   }
 
   type Query {
-    hello: String
-    
-    allScalars: AllScalars
+    int: Int
+    float: Float
+    string: String
+    boolean: Boolean
+    id: ID
+
+    person: Person
 
     randomEnum: Direction
-
     reflectEnum(input: Direction): Direction
 
     whereAmI(input: LatLngInput): String
@@ -82,15 +77,13 @@ let counter = 0;
 
 const resolvers = {
   Query: {
-    hello: () => 'Hello world!',
+    int: () => 42,
+    float: () => 42.2,
+    string: () => 'oi',
+    boolean: () => true,
+    id: () => 4,
 
-    allScalars: () => ({
-      int: 42,
-      float: 42.2,
-      string: 'oi',
-      boolean: true,
-      id: 4,
-    }),
+    person: () => ({ name: 'Joe', age: 31 }),
 
     reflectEnum: (_, { input }) => input,
 
@@ -102,7 +95,7 @@ const resolvers = {
 
     whereAmI: () => 'That\'s Mexico pretty sure',
 
-    searchResult: () => ({ name: 'Joe', age: 31, __typename: 'Person' }),
+    searchResult: () => ({ height: 150, width: 200, __typename: 'Photo' }),
 
     node: () => ({ id: 42, amount: 1500.50, __typename: 'Order' }),
 
