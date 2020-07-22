@@ -52,15 +52,18 @@ const typeDefs = gql`
 
   type Query {
     hello: String
+    
     allScalars: AllScalars
 
     randomEnum: Direction
+
     reflectEnum(input: Direction): Direction
 
     whereAmI(input: LatLngInput): String
 
     searchResult: SearchResult
-    order: Order
+
+    node: Node
 
     wrappingTypes: WrappingTypes
   }
@@ -80,6 +83,7 @@ let counter = 0;
 const resolvers = {
   Query: {
     hello: () => 'Hello world!',
+
     allScalars: () => ({
       int: 42,
       float: 42.2,
@@ -89,15 +93,18 @@ const resolvers = {
     }),
 
     reflectEnum: (_, { input }) => input,
+
     randomEnum: () => {
       const enums = ['NORTH', 'SOUTH', 'EAST', 'WEST'];
 
       return enums[Math.floor(enums.length * Math.random())];
     },
 
-    whereAmI: () => 'Thats Mexico pretty sure',
+    whereAmI: () => 'That\'s Mexico pretty sure',
 
     searchResult: () => ({ name: 'Joe', age: 31, __typename: 'Person' }),
+
+    node: () => ({ id: 42, amount: 1500.50, __typename: 'Order' }),
 
     wrappingTypes: () => ({
       foo: 42, bar: ['baz', null], baz: ['baz', 'foo'], bax: [[1, 2], [42]],
