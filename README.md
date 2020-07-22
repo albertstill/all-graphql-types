@@ -27,7 +27,7 @@ query all {
 
   searchResult {
     ... on Person {
-			name
+      name
     }
   }
 
