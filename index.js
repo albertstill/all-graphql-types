@@ -56,7 +56,7 @@ const typeDefs = gql`
 
     whereAmI(input: LatLngInput): String
 
-    searchResult: SearchResult
+    searchResults: [SearchResult!]!
 
     node: Node
 
@@ -95,7 +95,10 @@ const resolvers = {
 
     whereAmI: () => 'That\'s Mexico pretty sure',
 
-    searchResult: () => ({ height: 150, width: 200, __typename: 'Photo' }),
+    searchResults: () => [
+      { height: 150, width: 200, __typename: 'Photo' },
+      { name: 'Joe Bloggs', age: 30, __typename: 'Person' },
+    ],
 
     node: () => ({ id: 42, amount: 1500.50, __typename: 'Order' }),
 
