@@ -75,7 +75,15 @@ const typeDefs = gql`
 
 let counter = 0;
 
+const Direction = {
+  NORTH: { orientation: 0 },
+  EAST: { orientation: 90 },
+  SOUTH: { orientation: 180 },
+  WEST: { orientation: 270 },
+};
+
 const resolvers = {
+  Direction,
   Query: {
     int: () => 42,
     float: () => 42.2,
@@ -85,7 +93,11 @@ const resolvers = {
 
     person: () => ({ name: 'Joe', age: 31 }),
 
-    reflectEnum: (_, { input }) => input,
+    reflectEnum: (_, { input }) => {
+      console.log('input:', input);
+
+      return Direction.SOUTH;
+    },
 
     randomEnum: () => {
       const enums = ['NORTH', 'SOUTH', 'EAST', 'WEST'];
