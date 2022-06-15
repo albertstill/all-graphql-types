@@ -96,13 +96,14 @@ const resolvers = {
     reflectEnum: (_, { input }) => {
       console.log('input:', input);
 
-      return Direction.SOUTH;
+      return Object.values(Direction).find((val) => val === input);
     },
 
     randomEnum: () => {
-      const enums = ['NORTH', 'SOUTH', 'EAST', 'WEST'];
+      const keys = Object.keys(Direction);
+      const randomKey = keys[Math.floor(keys.length * Math.random())];
 
-      return enums[Math.floor(enums.length * Math.random())];
+      return Direction[randomKey];
     },
 
     whereAmI: () => 'That\'s Mexico pretty sure',
